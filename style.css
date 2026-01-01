@@ -29,6 +29,11 @@ header {
   justify-content: space-between;
 }
 
+.logo {
+  font-weight: 600;
+  font-size: 20px;
+}
+
 .nav-links {
   list-style: none;
   display: flex;
