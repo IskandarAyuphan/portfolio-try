@@ -97,9 +97,12 @@ header {
   background: linear-gradient(to right, #343639, #262629, #19181a);
 }
 
-h2 {
-  margin-bottom: 30px;
+/* SECTION TITLES */
+.section-title {
+  font-size: 36px;
+  margin-bottom: 45px;
   text-decoration: underline;
+  text-underline-offset: 12px;
 }
 
 h3 {
