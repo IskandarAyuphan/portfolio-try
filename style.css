@@ -210,6 +210,14 @@ h3 {
   margin-right: 8px;
 }
 
+/* CONNECT TITLE */
+.connect-title {
+  font-size: 36px;
+  color: #00bcd4;
+  margin-bottom: 40px;
+  animation: scalePulse 1.5s infinite;
+}
+
 /* ================= FOOTER ================= */
 .footer {
   background: #111;
