@@ -193,6 +193,16 @@ h3 {
   border-radius: 20px;
 }
 
+.skill-name {
+  font-weight: 600;
+}
+
+.skill-level {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin-top: 2px;
+}
+
 /* ================= CONTACT ================= */
 .contact-grid {
   display: flex;
