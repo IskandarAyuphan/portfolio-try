@@ -12,16 +12,3 @@ function move(step) {
   index = Math.max(0, Math.min(index + step, maxIndex));
   track.style.transform = `translateX(${-index * 300}px)`;
 }
-
-/* ================= SCROLL ANIMATION ================= */
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("show");
-    }
-  });
-}, { threshold: 0.1 });
-
-document.querySelectorAll(".hidden").forEach(section => {
-  observer.observe(section);
-});
