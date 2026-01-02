@@ -181,12 +181,16 @@ h3 {
 }
 
 .project strong {
-  display: block;
-  text-align: center; /* aligns all descriptions to center */
+  top: 15%;            /* vertical center */
+  left: 50%;           /* horizontal center */
+  width: 90%; 
+  transform: translate(-50%, -50%); /* center in both directions */
+  text-align: center;
+  margin 0:
 }
 
 .project-desc {
-  margin-top: 7rem;
+  margin-top: 5rem;
   margin-bottom: 0;
   line-height: 1.6;
   color: white;
