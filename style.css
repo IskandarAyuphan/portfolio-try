@@ -158,17 +158,13 @@ h3 {
 .carousel {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
-  position: relative;
+  gap: 20px;
 }
 
 /* Projects Container */
 .projects-container {
-  width: 100%;
-  max-width: 600px; /* desktop max width */
+  width: 600px;
   overflow: hidden;
-  scroll-behavior: smooth;
 }
 
 /* Track */
@@ -179,18 +175,14 @@ h3 {
 
 /* Project Card */
 .project {
-  flex: 0 0 48%; /* 2 cards visible on desktop */
-  margin: 0 1%;
-  scroll-snap-align: center;
-  background: #222;
-  padding: 20px;
-  border-radius: 10px;
-  box-sizing: border-box;
+  min-width: 280px;
+  margin: 10px;
+  scroll-snap-align: start;
 }
 
 .project strong {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 8px; /* space between title & description */
 }
 
 .project small {
@@ -202,48 +194,18 @@ h3 {
 .arrow {
   font-size: 30px;
   cursor: pointer;
-  z-index: 10;
-  user-select: none;
-  color: #00bcd4;
 }
 
-.arrow.left {
-  position: absolute;
-  left: -15px;
-}
-
-.arrow.right {
-  position: absolute;
-  right: -15px;
-}
-
-/* Mobile View */
+/* Mobile: 1 card visible */
 @media (max-width: 500px) {
-  .projects-track {
-    scroll-snap-type: x mandatory;
+  .project {
+    flex: 0 0 90%; /* 1 card per view */
   }
 
   .projects-container {
-    overflow-x: auto; /* allow swipe */
+    overflow-x: auto; /* allow horizontal scrolling on mobile */
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-  }
-
-  .projects-container::-webkit-scrollbar {
-    display: none; /* Chrome, Safari */
-  }
-
-  .project {
-    flex: 0 0 90%; /* 1 card visible */
-    margin: 0 5%;
-  }
-
-  .arrow.left {
-    left: 5px;
-  }
-
-  .arrow.right {
-    right: 5px;
+    scroll-snap-type: x mandatory;
   }
 }
 
