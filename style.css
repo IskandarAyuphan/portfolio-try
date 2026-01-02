@@ -182,12 +182,12 @@ h3 {
 
 .project strong {
   display: block;
-  margin-bottom: 8px; /* space between title & description */
+  text-align: center; /* aligns all descriptions to left */
+  flex-grow: 1; /* makes all cards equal height
 }
 
 .project-desc {
-  font-size: 1.5rem;
-  margin-top: 10rem;
+  margin-top: 5rem;
   margin-bottom: 0;
   line-height: 1.6;
   color: white;
