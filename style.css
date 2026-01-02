@@ -175,6 +175,16 @@ h3 {
   margin: 10px;
 }
 
+.project strong {
+  display: block;
+  margin-bottom: 8px; /* space between title & description */
+}
+
+.project small {
+  display: block;
+  line-height: 1.4;
+}
+
 .arrow {
   font-size: 30px;
   cursor: pointer;
