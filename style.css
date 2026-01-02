@@ -181,17 +181,16 @@ h3 {
 }
 
 .project strong {
-  position: absolute;
   display: block;
-  text-align: center; /* aligns all descriptions to left */
+  text-align: center; /* aligns all descriptions to center */
 }
 
 .project-desc {
-  margin-top: 10rem;
+  margin-top: 7rem;
   margin-bottom: 0;
   line-height: 1.6;
   color: white;
-  text-align: center; /* aligns all descriptions to left */
+  text-align: center; /* aligns all descriptions to center */
   flex-grow: 1; /* makes all cards equal height for descs */
 }
 
