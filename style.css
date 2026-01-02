@@ -154,30 +154,43 @@ h3 {
 }
 
 /* ================= PROJECTS ================= */
+/* Carousel Container */
 .carousel {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 20px;
+  width: 100%;
+  max-width: 600px; /* desktop limit */
+  margin: 0 auto;
+  gap: 10px;
 }
 
+/* Projects Container */
 .projects-container {
-  width: 600px;
+  width: 100%;
   overflow: hidden;
 }
 
+/* Track */
 .projects-track {
   display: flex;
   transition: transform 0.5s ease;
 }
 
+/* Project Card */
 .project {
-  min-width: 280px;
-  margin: 10px;
+  flex: 0 0 45%; /* 2 cards visible by default */
+  margin: 10px 5px;
+  min-width: 200px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 10px 15px;
+  box-sizing: border-box;
 }
 
 .project strong {
   display: block;
-  margin-bottom: 8px; /* space between title & description */
+  margin-bottom: 8px;
 }
 
 .project small {
@@ -185,9 +198,32 @@ h3 {
   line-height: 1.4;
 }
 
+/* Arrows */
 .arrow {
-  font-size: 30px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 25px;
   cursor: pointer;
+  z-index: 10;
+  color: white;
+  user-select: none;
+}
+
+.left-arrow {
+  left: 5px;
+}
+
+.right-arrow {
+  right: 5px;
+}
+
+/* Responsive - show only 1 card on small screens */
+@media (max-width: 500px) {
+  .project {
+    flex: 0 0 90%;
+    margin: 10px 5%;
+  }
 }
 
 /* ================= SKILLS ================= */
