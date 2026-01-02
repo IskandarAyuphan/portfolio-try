@@ -180,14 +180,26 @@ h3 {
   scroll-snap-align: start;
 }
 
-.project strong {
-  display: block;
-  margin-bottom: 8px; /* space between title & description */
+.project-title {
+  position: absolute;  /* independent from flex layout */
+  top: 15%;            /* vertical center */
+  left: 50%;           /* horizontal center */
+  width: 90%; 
+  transform: translate(-50%, -50%); /* center in both directions */
+  font-size: 2.2rem;
+  color: white;
+  text-align: center;
+  margin: 0;
 }
 
-.project small {
-  display: block;
-  line-height: 1.4;
+.project-desc {
+  font-size: 1.5rem;
+  margin-top: 10rem;
+  margin-bottom: 0;
+  line-height: 1.6;
+  color: white;
+  text-align: center; /* aligns all descriptions to left */
+  flex-grow: 1; /* makes all cards equal height for descs */
 }
 
 /* Arrows */
