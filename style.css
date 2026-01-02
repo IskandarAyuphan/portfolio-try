@@ -164,10 +164,8 @@ h3 {
 /* Projects Container */
 .projects-container {
   width: 600px;
-  overflow: hidden;
+  overflow-x: hidden;
   scroll-snap-type: x mandatory;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
 }
 
 /* Track */
@@ -203,6 +201,11 @@ h3 {
 @media (max-width: 500px) {
   .project {
     flex: 0 0 90%; /* 1 card per view */
+  }
+
+  .projects-container {
+    overflow-x: auto; /* allow horizontal scrolling on mobile */
+    -webkit-overflow-scrolling: touch;
   }
 }
 
