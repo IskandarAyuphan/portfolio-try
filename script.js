@@ -23,4 +23,4 @@ function move(step) {
   }
 
   track.style.transform = `translateX(${-index * cardWidth}px)`;
-}}
+}
