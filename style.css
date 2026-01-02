@@ -165,6 +165,9 @@ h3 {
 .projects-container {
   width: 600px;
   overflow: hidden;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Track */
@@ -177,6 +180,7 @@ h3 {
 .project {
   min-width: 280px;
   margin: 10px;
+  scroll-snap-align: start;
 }
 
 .project strong {
