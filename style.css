@@ -180,16 +180,9 @@ h3 {
   scroll-snap-align: start;
 }
 
-.project-title {
-  position: absolute;  /* independent from flex layout */
-  top: 15%;            /* vertical center */
-  left: 50%;           /* horizontal center */
-  width: 90%; 
-  transform: translate(-50%, -50%); /* center in both directions */
-  font-size: 2.2rem;
-  color: white;
-  text-align: center;
-  margin: 0;
+.project strong {
+  display: block;
+  margin-bottom: 8px; /* space between title & description */
 }
 
 .project-desc {
