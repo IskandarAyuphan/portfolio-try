@@ -5,18 +5,22 @@ function toggleMenu() {
 
 /* ================= PROJECT CAROUSEL ================= */
 let index = 0;
-const totalProjects = 4; // total number of project cards
-const visibleProjects = 2; // how many cards are visible at a time
+const totalProjects = 4;   // total number of project cards
+const visibleProjects = 2; // number of cards visible at a time
+const cardWidth = 300;     // must match your CSS
 
 function move(step) {
   const track = document.getElementById("track");
-  const maxIndex = totalProjects - visibleProjects;
+  const maxIndex = totalProjects - visibleProjects; // last index where 2 cards are fully visible
 
   index += step;
 
-  // loop to start/end
+  // wrap around
   if (index > maxIndex) {
-    index = 0; // go back to first card
+    index = 0; // back to first set
   } else if (index < 0) {
-    index = maxIndex; // go to last visible card
+    index = maxIndex; // go to last set
   }
+
+  track.style.transform = `translateX(${-index * cardWidth}px)`;
+}}
