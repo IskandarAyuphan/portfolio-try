@@ -5,13 +5,16 @@ function toggleMenu() {
 
 /* ================= PROJECT CAROUSEL ================= */
 let index = 0;
-const totalProjects = 4;   // total number of project cards
-const visibleProjects = 2; // number of cards visible at a time
-const cardWidth = 300;     // must match your CSS
 
 function move(step) {
   const track = document.getElementById("track");
-  const maxIndex = totalProjects - visibleProjects; // last index where 2 cards are fully visible
+  const cards = document.querySelectorAll(".project");
+
+  const isMobile = window.innerWidth <= 600;
+  const visibleProjects = isMobile ? 1 : 2;
+
+  const cardWidth = cards[0].offsetWidth;
+  const maxIndex = cards.length - visibleProjects;
 
   index += step;
 
@@ -24,3 +27,9 @@ function move(step) {
 
   track.style.transform = `translateX(${-index * cardWidth}px)`;
 }
+
+/* Recalculate on resize */
+window.addEventListener("resize", () => {
+  index = 0;
+  move(0);
+});
