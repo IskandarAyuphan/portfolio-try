@@ -181,6 +181,7 @@ h3 {
 }
 
 .project strong {
+  position: absolute;
   top: 15%;            /* vertical center */
   left: 50%;           /* horizontal center */
   width: 90%; 
