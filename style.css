@@ -157,12 +157,9 @@ h3 {
 /* Carousel Container */
 .carousel {
   position: relative;
-  display: flex;
-  align-items: center;
   width: 100%;
   max-width: 600px; /* desktop limit */
   margin: 0 auto;
-  gap: 10px;
 }
 
 /* Projects Container */
@@ -175,17 +172,17 @@ h3 {
 .projects-track {
   display: flex;
   transition: transform 0.5s ease;
+  gap: 20px; /* space between cards */
 }
 
 /* Project Card */
 .project {
-  flex: 0 0 45%; /* 2 cards visible by default */
-  margin: 10px 5px;
-  min-width: 200px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 20px;
-  padding: 10px 15px;
+  flex: 0 0 50%; /* 2 cards visible on desktop */
+  min-width: 250px;
   box-sizing: border-box;
+  padding: 10px 15px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .project strong {
@@ -196,6 +193,7 @@ h3 {
 .project small {
   display: block;
   line-height: 1.4;
+  font-size: 0.9rem;
 }
 
 /* Arrows */
@@ -218,11 +216,10 @@ h3 {
   right: 5px;
 }
 
-/* Responsive - show only 1 card on small screens */
+/* Mobile: 1 card visible */
 @media (max-width: 500px) {
   .project {
-    flex: 0 0 90%;
-    margin: 10px 5%;
+    flex: 0 0 90%; /* 1 card per view */
   }
 }
 
