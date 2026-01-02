@@ -164,8 +164,7 @@ h3 {
 /* Projects Container */
 .projects-container {
   width: 600px;
-  overflow-x: hidden;
-  scroll-snap-type: x mandatory;
+  overflow: hidden;
 }
 
 /* Track */
@@ -206,6 +205,7 @@ h3 {
   .projects-container {
     overflow-x: auto; /* allow horizontal scrolling on mobile */
     -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
   }
 }
 
