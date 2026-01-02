@@ -20,7 +20,7 @@ const observer = new IntersectionObserver(entries => {
       entry.target.classList.add("show");
     }
   });
-}, { threshold: 0.2 });
+}, { threshold: 0.1 });
 
 document.querySelectorAll(".hidden").forEach(section => {
   observer.observe(section);
