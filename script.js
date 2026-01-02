@@ -7,29 +7,37 @@ function toggleMenu() {
 let index = 0;
 
 function move(step) {
+  const container = document.querySelector(".projects-container");
   const track = document.getElementById("track");
   const cards = document.querySelectorAll(".project");
 
   const isMobile = window.innerWidth <= 600;
-  const visibleProjects = isMobile ? 1 : 2;
-
   const cardWidth = cards[0].offsetWidth;
+
+  if (isMobile) {
+    // 📱 Mobile: native scroll
+    container.scrollBy({
+      left: step * cardWidth,
+      behavior: "smooth"
+    });
+    return;
+  }
+
+  // 💻 Desktop: transform carousel
+  const visibleProjects = 2;
   const maxIndex = cards.length - visibleProjects;
 
   index += step;
 
-  // wrap around
-  if (index > maxIndex) {
-    index = 0; // back to first set
-  } else if (index < 0) {
-    index = maxIndex; // go to last set
-  }
+  if (index > maxIndex) index = 0;
+  if (index < 0) index = maxIndex;
 
   track.style.transform = `translateX(${-index * cardWidth}px)`;
 }
 
-/* Recalculate on resize */
+/* Reset on resize */
 window.addEventListener("resize", () => {
   index = 0;
-  move(0);
+  document.getElementById("track").style.transform = "translateX(0)";
+  document.querySelector(".projects-container").scrollLeft = 0;
 });
