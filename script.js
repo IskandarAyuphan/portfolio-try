@@ -8,7 +8,17 @@ let index = 0;
 
 function move(step) {
   const track = document.getElementById("track");
-  const maxIndex = 2; // only 2 cards visible at a time
-  index = Math.max(0, Math.min(index + step, maxIndex));
-  track.style.transform = `translateX(${-index * 300}px)`;
+  const totalProjects = 4;   // total cards
+  const cardWidth = 300;     // must match your CSS movement
+
+  index += step;
+
+  // wrap around
+  if (index < 0) {
+    index = totalProjects - 1;
+  } else if (index >= totalProjects) {
+    index = 0;
+  }
+
+  track.style.transform = `translateX(${-index * cardWidth}px)`;
 }
