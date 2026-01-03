@@ -12,47 +12,48 @@ const cards = Array.from(document.querySelectorAll('.project-card'));
 const totalCards = cards.length;
 let currentIndex = 0;
 
+// Get card width + gap
+function getCardWidth() {
+  const card = cards[0];
+  const style = window.getComputedStyle(slider);
+  const gap = parseInt(style.getPropertyValue('gap')) || 0;
+  return card.offsetWidth + gap;
+}
+
+// Scroll by card width
 function scrollToCard(index, smooth = true) {
   slider.scrollTo({
-    left: cards[index].offsetLeft,
+    left: index * getCardWidth(),
     behavior: smooth ? 'smooth' : 'auto',
   });
 }
 
-/* Initial alignment */
+// Initial alignment
 window.addEventListener('load', () => {
   scrollToCard(0, false);
 });
 
-/* Right arrow (loop) */
+// Right arrow (loop)
 rightBtn.addEventListener('click', () => {
   currentIndex = (currentIndex + 1) % totalCards;
   scrollToCard(currentIndex);
 });
 
-/* Left arrow (loop) */
+// Left arrow (loop)
 leftBtn.addEventListener('click', () => {
   currentIndex = (currentIndex - 1 + totalCards) % totalCards;
   scrollToCard(currentIndex);
 });
 
-/* Sync index on manual scroll */
+// Sync index on manual scroll
 slider.addEventListener('scroll', () => {
-  let closestIndex = 0;
-  let minDiff = Infinity;
-
-  cards.forEach((card, i) => {
-    const diff = Math.abs(slider.scrollLeft - card.offsetLeft);
-    if (diff < minDiff) {
-      minDiff = diff;
-      closestIndex = i;
-    }
-  });
-
-  currentIndex = closestIndex;
+  const cardWidth = getCardWidth();
+  const scrollPos = slider.scrollLeft;
+  currentIndex = Math.round(scrollPos / cardWidth);
 });
 
-/* Keep alignment on resize */
+// Re-align on resize
 window.addEventListener('resize', () => {
   scrollToCard(currentIndex, false);
 });
+
