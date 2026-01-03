@@ -7,69 +7,60 @@ function toggleMenu() {
 const slider = document.querySelector('.projects-slider');
 const leftBtn = document.querySelector('.slide-arrow.left');
 const rightBtn = document.querySelector('.slide-arrow.right');
-const cards = [...document.querySelectorAll('.project-card')];
+const cards = Array.from(document.querySelectorAll('.project-card'));
 
 const totalCards = cards.length;
 let currentIndex = 0;
 
-/* Scroll to card snap position */
+/* Scroll to snap position */
 function scrollToCard(index, smooth = true) {
-  cards[index].scrollIntoView({
+  slider.scrollTo({
+    left: cards[index].offsetLeft,
     behavior: smooth ? 'smooth' : 'auto',
-    inline: 'center', // match scroll-snap-align
-    block: 'nearest',
   });
 }
 
-/* Sync index when user scrolls (mouse / touchpad / swipe) */
-function updateIndexFromScroll() {
-  const sliderCenter = slider.scrollLeft + slider.clientWidth / 2;
+/* Sync index when user scrolls manually */
+function syncIndex() {
+  const scrollPos = slider.scrollLeft;
 
   let closestIndex = 0;
-  let minDistance = Infinity;
+  let minDiff = Infinity;
 
-  cards.forEach((card, index) => {
-    const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-    const distance = Math.abs(sliderCenter - cardCenter);
-
-    if (distance < minDistance) {
-      minDistance = distance;
-      closestIndex = index;
+  cards.forEach((card, i) => {
+    const diff = Math.abs(scrollPos - card.offsetLeft);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closestIndex = i;
     }
   });
 
   currentIndex = closestIndex;
 }
 
-/* Prevent dead click */
+/* Initial snap (prevents first-click bug) */
 window.addEventListener('load', () => {
   scrollToCard(0, false);
 });
 
 /* Right arrow */
 rightBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % totalCards;
+  currentIndex = Math.min(currentIndex + 1, totalCards - 1);
   scrollToCard(currentIndex);
 });
 
 /* Left arrow */
 leftBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+  currentIndex = Math.max(currentIndex - 1, 0);
   scrollToCard(currentIndex);
 });
 
-/* Listen to manual scrolling */
+/* Listen for mouse / touch scroll */
 slider.addEventListener('scroll', () => {
-  window.requestAnimationFrame(updateIndexFromScroll);
+  requestAnimationFrame(syncIndex);
 });
 
-/* Keep snap aligned on resize */
+/* Re-align on resize */
 window.addEventListener('resize', () => {
   scrollToCard(currentIndex, false);
 });
-
-/* Keep alignment on resize */
-window.addEventListener('resize', () => {
-  updatePosition(false);
-});
-
