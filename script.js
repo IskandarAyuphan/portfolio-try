@@ -12,26 +12,18 @@ const cards = Array.from(document.querySelectorAll('.project-card'));
 const totalCards = cards.length;
 let currentIndex = 0;
 
-// Get card width + gap
-function getCardWidth() {
-  const card = cards[0];
-  const style = window.getComputedStyle(slider);
-  const gap = parseInt(style.getPropertyValue('gap')) || 0;
-  return card.offsetWidth + gap;
-}
-
-// Scroll to specific card
-function scrollToCard(index, smooth = true) {
-  const cardWidth = getCardWidth();
-  slider.scrollTo({
-    left: index * cardWidth,
-    behavior: smooth ? 'smooth' : 'auto',
+// Scroll to a card using scrollIntoView
+function scrollToCard(index) {
+  cards[index].scrollIntoView({
+    behavior: 'smooth',
+    inline: 'center',   // aligns card to center
+    block: 'nearest'    // vertical alignment (not important here)
   });
 }
 
 // Initial alignment
 window.addEventListener('load', () => {
-  scrollToCard(0, false);
+  scrollToCard(0);
 });
 
 // Right arrow (loop)
@@ -48,12 +40,24 @@ leftBtn.addEventListener('click', () => {
 
 // Sync index on manual scroll
 slider.addEventListener('scroll', () => {
-  const cardWidth = getCardWidth();
-  currentIndex = Math.round(slider.scrollLeft / cardWidth);
+  let closestIndex = 0;
+  let minDiff = Infinity;
+  const sliderCenter = slider.scrollLeft + slider.clientWidth / 2;
+
+  cards.forEach((card, i) => {
+    const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+    const diff = Math.abs(sliderCenter - cardCenter);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closestIndex = i;
+    }
+  });
+
+  currentIndex = closestIndex;
 });
 
 // Re-align on resize
 window.addEventListener('resize', () => {
-  scrollToCard(currentIndex, false);
+  scrollToCard(currentIndex);
 });
 
