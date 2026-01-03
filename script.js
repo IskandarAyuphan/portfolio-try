@@ -20,10 +20,11 @@ function getCardWidth() {
   return card.offsetWidth + gap;
 }
 
-// Scroll by card width
+// Scroll to specific card
 function scrollToCard(index, smooth = true) {
+  const cardWidth = getCardWidth();
   slider.scrollTo({
-    left: index * getCardWidth(),
+    left: index * cardWidth,
     behavior: smooth ? 'smooth' : 'auto',
   });
 }
@@ -48,8 +49,7 @@ leftBtn.addEventListener('click', () => {
 // Sync index on manual scroll
 slider.addEventListener('scroll', () => {
   const cardWidth = getCardWidth();
-  const scrollPos = slider.scrollLeft;
-  currentIndex = Math.round(scrollPos / cardWidth);
+  currentIndex = Math.round(slider.scrollLeft / cardWidth);
 });
 
 // Re-align on resize
