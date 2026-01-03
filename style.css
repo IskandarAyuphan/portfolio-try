@@ -221,7 +221,7 @@ h4 {
 .projects-slider-container {
   position: relative;
   width: 100%;
-  max-width: 900px;
+  max-width: 100%;
   margin: 0 auto 5rem auto;
   display: flex;
   align-items: center;
