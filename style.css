@@ -167,7 +167,7 @@ h4 {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeInUp 0.8s ease forwards;
-  width: 275px;
+  width: 278.5px;
   height: 350px;
   flex: 0 0 auto;
   scroll-snap-align: center; /* center the card */
