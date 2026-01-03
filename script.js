@@ -41,3 +41,8 @@ leftBtn.addEventListener('click', () => {
   currentIndex = (currentIndex - 1 + totalCards) % totalCards;
   scrollToCard(currentIndex);
 });
+
+/* Optional: keep alignment on resize */
+window.addEventListener('resize', () => {
+  scrollToCard(currentIndex, false);
+});
