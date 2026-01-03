@@ -4,6 +4,7 @@ function toggleMenu() {
 }
 
 /* ================= PROJECT CAROUSEL ================= */
+
 const slider = document.querySelector('.projects-slider');
 const leftBtn = document.querySelector('.slide-arrow.left');
 const rightBtn = document.querySelector('.slide-arrow.right');
@@ -12,37 +13,51 @@ const cards = document.querySelectorAll('.project-card');
 const totalCards = cards.length;
 let currentIndex = 0;
 
-function scrollToCard(index, smooth = true) {
-  const card = cards[index];
-  const left =
-    card.offsetLeft -
-    slider.clientWidth / 2 +
-    card.offsetWidth / 2;
+// Get card width INCLUDING gap
+function getCardWidth() {
+  const card = cards[0];
+  const gap = parseInt(getComputedStyle(slider).gap) || 0;
+  return card.offsetWidth + gap;
+}
 
+// Snap to correct position
+function updatePosition(smooth = true) {
   slider.scrollTo({
-    left,
+    left: currentIndex * getCardWidth(),
     behavior: smooth ? 'smooth' : 'auto',
   });
 }
 
-/* 🔑 IMPORTANT: force initial alignment */
+/* Fix initial dead click */
 window.addEventListener('load', () => {
-  scrollToCard(0, false); // snap immediately, no animation
+  slider.scrollLeft = 0;
+  currentIndex = 0;
 });
 
 /* Right arrow */
 rightBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % totalCards;
-  scrollToCard(currentIndex);
+  currentIndex++;
+
+  if (currentIndex >= totalCards) {
+    currentIndex = 0; // loop
+  }
+
+  updatePosition();
 });
 
 /* Left arrow */
 leftBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + totalCards) % totalCards;
-  scrollToCard(currentIndex);
+  currentIndex--;
+
+  if (currentIndex < 0) {
+    currentIndex = totalCards - 1; // loop
+  }
+
+  updatePosition();
 });
 
-/* Optional: keep alignment on resize */
+/* Keep alignment on resize */
 window.addEventListener('resize', () => {
-  scrollToCard(currentIndex, false);
+  updatePosition(false);
 });
+
