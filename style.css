@@ -276,6 +276,17 @@ h4 {
   }
 }
 
+/* Mobile Project */
+@media (max-width: 600px) {
+  .projects-slider-container {
+    max-width: 320px; /* fits 1 card */
+  }
+
+  .project-card {
+    scroll-snap-align: center; /* center single card */
+  }
+}
+
 /* ================= SKILLS ================= */
 .skill-grid {
   display: flex;
