@@ -4,56 +4,68 @@ function toggleMenu() {
 }
 
 /* ================= PROJECT CAROUSEL ================= */
-
 const slider = document.querySelector('.projects-slider');
 const leftBtn = document.querySelector('.slide-arrow.left');
 const rightBtn = document.querySelector('.slide-arrow.right');
-const cards = document.querySelectorAll('.project-card');
+const cards = [...document.querySelectorAll('.project-card')];
 
 const totalCards = cards.length;
 let currentIndex = 0;
 
-// Get card width INCLUDING gap
-function getCardWidth() {
-  const card = cards[0];
-  const gap = parseInt(getComputedStyle(slider).gap) || 0;
-  return card.offsetWidth + gap;
-}
-
-// Snap to correct position
-function updatePosition(smooth = true) {
-  slider.scrollTo({
-    left: currentIndex * getCardWidth(),
+/* Scroll to card snap position */
+function scrollToCard(index, smooth = true) {
+  cards[index].scrollIntoView({
     behavior: smooth ? 'smooth' : 'auto',
+    inline: 'center', // match scroll-snap-align
+    block: 'nearest',
   });
 }
 
-/* Fix initial dead click */
+/* Sync index when user scrolls (mouse / touchpad / swipe) */
+function updateIndexFromScroll() {
+  const sliderCenter = slider.scrollLeft + slider.clientWidth / 2;
+
+  let closestIndex = 0;
+  let minDistance = Infinity;
+
+  cards.forEach((card, index) => {
+    const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+    const distance = Math.abs(sliderCenter - cardCenter);
+
+    if (distance < minDistance) {
+      minDistance = distance;
+      closestIndex = index;
+    }
+  });
+
+  currentIndex = closestIndex;
+}
+
+/* Prevent dead click */
 window.addEventListener('load', () => {
-  slider.scrollLeft = 0;
-  currentIndex = 0;
+  scrollToCard(0, false);
 });
 
 /* Right arrow */
 rightBtn.addEventListener('click', () => {
-  currentIndex++;
-
-  if (currentIndex >= totalCards) {
-    currentIndex = 0; // loop
-  }
-
-  updatePosition();
+  currentIndex = (currentIndex + 1) % totalCards;
+  scrollToCard(currentIndex);
 });
 
 /* Left arrow */
 leftBtn.addEventListener('click', () => {
-  currentIndex--;
+  currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+  scrollToCard(currentIndex);
+});
 
-  if (currentIndex < 0) {
-    currentIndex = totalCards - 1; // loop
-  }
+/* Listen to manual scrolling */
+slider.addEventListener('scroll', () => {
+  window.requestAnimationFrame(updateIndexFromScroll);
+});
 
-  updatePosition();
+/* Keep snap aligned on resize */
+window.addEventListener('resize', () => {
+  scrollToCard(currentIndex, false);
 });
 
 /* Keep alignment on resize */
