@@ -25,8 +25,6 @@ rightBtn.addEventListener('click', () => {
     if (currentIndex > 2) currentIndex = 1;
   } else if (currentIndex === 0) {
     currentIndex = 1;
-  } else if (currentIndex === 3) {
-    currentIndex = 0;
   scrollToCard(currentIndex);
 });
 
@@ -35,8 +33,6 @@ leftBtn.addEventListener('click', () => {
   if (currentIndex >= 1 && currentIndex <= 2) {
     currentIndex--;
     if (currentIndex < 1) currentIndex = 2;
-  } else if (currentIndex === 0) {
-    currentIndex = 3;
   } else if (currentIndex === 3) {
     currentIndex = 2;
   scrollToCard(currentIndex);
