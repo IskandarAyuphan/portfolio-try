@@ -23,11 +23,11 @@ rightBtn.addEventListener('click', () => {
   // Only loop middle cards (1-2 in 0-based index)
   if (currentIndex >= 1 && currentIndex <= 2) {
     currentIndex++;
-    if (currentIndex > 2) currentIndex = 1; // loop back to second card
+    if (currentIndex > 2) currentIndex = 3;
   } else if (currentIndex === 0) {
     currentIndex = 1; // move from first card to second
   } else if (currentIndex === 3) {
-    currentIndex = 2; // move from last card to fifth
+    currentIndex = 0; // move from last card to first
   }
   scrollToCard(currentIndex);
 });
@@ -36,11 +36,11 @@ rightBtn.addEventListener('click', () => {
 leftBtn.addEventListener('click', () => {
   if (currentIndex >= 1 && currentIndex <= 2) {
     currentIndex--;
-    if (currentIndex < 1) currentIndex = 2; // loop back to fifth card
+    if (currentIndex < 1) currentIndex = 3; // loop back to last card
   } else if (currentIndex === 0) {
-    currentIndex = 1; // move from first card to second
+    currentIndex = 3; // move from first card to second
   } else if (currentIndex === 3) {
-    currentIndex = 2; // move from last card to fifth
+    currentIndex = 2; // move from last card to last
   }
   scrollToCard(currentIndex);
 });
