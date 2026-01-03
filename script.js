@@ -7,60 +7,39 @@ function toggleMenu() {
 const slider = document.querySelector('.projects-slider');
 const leftBtn = document.querySelector('.slide-arrow.left');
 const rightBtn = document.querySelector('.slide-arrow.right');
-const cards = Array.from(document.querySelectorAll('.project-card'));
+const cards = document.querySelectorAll('.project-card');
 
-const totalCards = cards.length;
-let currentIndex = 0;
+let currentIndex = 0; // start at first card
 
-/* Scroll to snap position */
-function scrollToCard(index, smooth = true) {
-  slider.scrollTo({
-    left: cards[index].offsetLeft,
-    behavior: smooth ? 'smooth' : 'auto',
-  });
+function scrollToCard(index) {
+  const card = cards[index];
+  const left = card.offsetLeft - (slider.clientWidth / 2) + (card.offsetWidth / 2);
+  slider.scrollTo({ left: left, behavior: 'smooth' });
 }
 
-/* Sync index when user scrolls manually */
-function syncIndex() {
-  const scrollPos = slider.scrollLeft;
-
-  let closestIndex = 0;
-  let minDiff = Infinity;
-
-  cards.forEach((card, i) => {
-    const diff = Math.abs(scrollPos - card.offsetLeft);
-    if (diff < minDiff) {
-      minDiff = diff;
-      closestIndex = i;
-    }
-  });
-
-  currentIndex = closestIndex;
-}
-
-/* Initial snap (prevents first-click bug) */
-window.addEventListener('load', () => {
-  scrollToCard(0, false);
-});
-
-/* Right arrow */
+// Right arrow
 rightBtn.addEventListener('click', () => {
-  currentIndex = Math.min(currentIndex + 1, totalCards - 1);
+  // Only loop middle cards (1-2 in 0-based index)
+  if (currentIndex >= 1 && currentIndex <= 2) {
+    currentIndex++;
+    if (currentIndex > 2) currentIndex = 1; // loop back to second card
+  } else if (currentIndex === 0) {
+    currentIndex = 1; // move from first card to second
+  } else if (currentIndex === 3) {
+    currentIndex = 2; // move from last card to fifth
+  }
   scrollToCard(currentIndex);
 });
 
-/* Left arrow */
+// Left arrow
 leftBtn.addEventListener('click', () => {
-  currentIndex = Math.max(currentIndex - 1, 0);
+  if (currentIndex >= 1 && currentIndex <= 2) {
+    currentIndex--;
+    if (currentIndex < 1) currentIndex = 2; // loop back to fifth card
+  } else if (currentIndex === 0) {
+    currentIndex = 1; // move from first card to second
+  } else if (currentIndex === 3) { 
+    currentIndex = 2; // move from last card to fifth
+  }
   scrollToCard(currentIndex);
-});
-
-/* Listen for mouse / touch scroll */
-slider.addEventListener('scroll', () => {
-  requestAnimationFrame(syncIndex);
-});
-
-/* Re-align on resize */
-window.addEventListener('resize', () => {
-  scrollToCard(currentIndex, false);
 });
