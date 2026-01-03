@@ -19,17 +19,19 @@ function scrollToCard(index) {
   slider.scrollTo({ left: left, behavior: 'smooth' });
 }
 
-// Initialize slider to center first card
-scrollToCard(currentIndex);
+// Initialize slider AFTER layout is ready
+window.addEventListener('load', () => {
+  scrollToCard(currentIndex);
+});
 
-// Right arrow
+// Right arrow click
 rightBtn.addEventListener('click', () => {
   currentIndex++;
   if (currentIndex > totalCards - 1) currentIndex = 0; // loop to first card
   scrollToCard(currentIndex);
 });
 
-// Left arrow
+// Left arrow click
 leftBtn.addEventListener('click', () => {
   currentIndex--;
   if (currentIndex < 0) currentIndex = totalCards - 1; // loop to last card
@@ -53,4 +55,9 @@ slider.addEventListener('scroll', () => {
   });
 
   currentIndex = closestIndex;
+});
+
+// Optional: recalc position if window resizes
+window.addEventListener("resize", () => {
+  scrollToCard(currentIndex);
 });
