@@ -191,8 +191,9 @@ h4 {
 }
 
 .project-desc {
+  position: absolute
   font-size: 1.2rem;
-  margin-top: 1.5rem;
+  margin-top: 5rem;
   margin-bottom: 0;
   line-height: 1.6;
   color: #d0d4db;
