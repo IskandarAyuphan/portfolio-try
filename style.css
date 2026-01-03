@@ -155,49 +155,113 @@ h4 {
 }
 
 /* ================= PROJECTS ================= */
-/* Carousel Container */
-.carousel {
+.project-card {
+  background: #2c2d31;
+  padding: 25px;
+  border-radius: 12px;
   display: flex;
-  align-items: center;
-  gap: 20px;
+  flex-direction: column;
+  justify-content: center; /* vertical centering */
+  align-items: center;     /* horizontal centering */
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease forwards;
+  width: 285px;
+  height: 350px;
+  flex: 0 0 auto;
+  scroll-snap-align: center; /* center the card */
 }
+.project-card:nth-child(1) { animation-delay: 0.1s; }
+.project-card:nth-child(2) { animation-delay: 0.2s; }
+.project-card:nth-child(3) { animation-delay: 0.3s; }
+.project-card:nth-child(4) { animation-delay: 0.4s; }
 
-/* Projects Container */
-.projects-container {
-  width: 600px;
-  overflow: hidden;
-}
-
-/* Track */
-.projects-track {
-  display: flex;
-  transition: transform 0.5s ease;
-}
-
-/* Project Card */
-.project {
-  min-width: 280px;
-  margin: 10px;
-  scroll-snap-align: start;
-}
-
-.project strong {
-  position: absolute;
+.project-title {
+  position: absolute;  /* independent from flex layout */
   top: 15%;            /* vertical center */
   left: 50%;           /* horizontal center */
   width: 90%; 
   transform: translate(-50%, -50%); /* center in both directions */
+  font-size: 2.2rem;
+  color: #3a9ed9;
+  font-weight: 700;
   text-align: center;
-  margin 0:
+  margin: 0;
 }
 
 .project-desc {
-  margin-top: 5rem;
+  font-size: 1.5rem;
+  margin-top: 10rem;
   margin-bottom: 0;
   line-height: 1.6;
-  color: white;
-  text-align: center; /* aligns all descriptions to center */
+  color: #d0d4db;
+  text-align: center; /* aligns all descriptions to left */
   flex-grow: 1; /* makes all cards equal height for descs */
+}
+
+.project-card a {
+  font-size: 1.3rem;
+  color: #fff;
+  text-decoration: none;
+  background: #3a6285;
+  padding: 5px 12px;
+  border-radius: 6px;
+  align-self: center;
+  margin-top: auto;
+  transition: transform 0.3s, background 0.3s;
+}
+.project-card a:hover {
+  background: #3a9ed9;
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+}
+
+/* Slide */
+.projects-slider-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto 5rem auto;
+  display: flex;
+  align-items: center;
+}
+.projects-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 2rem;
+  padding-bottom: 2rem;
+
+  scroll-snap-type: x mandatory; /* snap to each card */
+  -webkit-overflow-scrolling: touch;
+}
+.projects-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.slide-arrow {
+  background: rgba(58, 98, 133, 0.8);
+  color: white;
+  border: none;
+  font-size: 2.5rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  transition: background 0.3s;
+}
+.slide-arrow:hover {
+  background: #3a9ed9;
+}
+.slide-arrow.left {
+  left: -2rem;
+}
+.slide-arrow.right {
+  right: -2rem;
 }
 
 /* Arrows */
