@@ -4,42 +4,63 @@ function toggleMenu() {
 }
 
 /* ================= PROJECT CAROUSEL ================= */
-
 const slider = document.querySelector('.projects-slider');
 const leftBtn = document.querySelector('.slide-arrow.left');
 const rightBtn = document.querySelector('.slide-arrow.right');
 const cards = document.querySelectorAll('.project-card');
 
-let currentIndex = 0; // start at first card
+const totalCards = cards.length;
+const visibleCards = 2;
+const maxIndex = totalCards - visibleCards; // 4 - 2 = 2
 
-function scrollToCard(index) {
-  const card = cards[index];
-  const left = card.offsetLeft - (slider.clientWidth / 2) + (card.offsetWidth / 2);
-  slider.scrollTo({ left: left, behavior: 'smooth' });
+let currentIndex = 0;
+
+/* Scroll so LEFT card aligns */
+function scrollToCard(index, smooth = true) {
+  slider.scrollTo({
+    left: cards[index].offsetLeft,
+    behavior: smooth ? 'smooth' : 'auto',
+  });
 }
 
-// Right arrow
+/* Initial position */
+window.addEventListener('load', () => {
+  scrollToCard(0, false);
+});
+
+/* RIGHT arrow */
 rightBtn.addEventListener('click', () => {
-  if (currentIndex >= 1 && currentIndex <= 2) {
-    currentIndex++;
-  } else if (currentIndex === 0) {
-    currentIndex = 1;
-  } else if (currentIndex > 2) {
-    currentIndex = 0;
-  }
+  currentIndex++;
+  if (currentIndex > maxIndex) currentIndex = 0;
   scrollToCard(currentIndex);
 });
 
-// Left arrow
+/* LEFT arrow */
 leftBtn.addEventListener('click', () => {
-  if (currentIndex >= 1 && currentIndex <= 2) {
-    currentIndex--;
-  } else if (currentIndex === 3) {
-    currentIndex = 2;
-  } else if (currentIndex < 1) {
-    currentIndex = 3;
-  }
+  currentIndex--;
+  if (currentIndex < 0) currentIndex = maxIndex;
   scrollToCard(currentIndex);
+});
+
+/* Sync index when user scrolls manually */
+slider.addEventListener('scroll', () => {
+  let closestIndex = 0;
+  let minDiff = Infinity;
+
+  cards.forEach((card, i) => {
+    const diff = Math.abs(slider.scrollLeft - card.offsetLeft);
+    if (diff < minDiff) {
+      minDiff = diff;
+      closestIndex = i;
+    }
+  });
+
+  currentIndex = Math.min(closestIndex, maxIndex);
+});
+
+/* Keep alignment on resize */
+window.addEventListener('resize', () => {
+  scrollToCard(currentIndex, false);
 });
 
 
