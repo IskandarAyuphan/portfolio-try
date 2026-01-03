@@ -4,60 +4,45 @@ function toggleMenu() {
 }
 
 /* ================= PROJECT CAROUSEL ================= */
+
 const slider = document.querySelector('.projects-slider');
 const leftBtn = document.querySelector('.slide-arrow.left');
 const rightBtn = document.querySelector('.slide-arrow.right');
-const cards = Array.from(document.querySelectorAll('.project-card'));
+const cards = document.querySelectorAll('.project-card');
 
-const totalCards = cards.length;
-let currentIndex = 0;
+let currentIndex = 0; // start at first card
 
-// Scroll to a card using scrollIntoView
 function scrollToCard(index) {
-  cards[index].scrollIntoView({
-    behavior: 'smooth',
-    inline: 'center',   // aligns card to center
-    block: 'nearest'    // vertical alignment (not important here)
-  });
+  const card = cards[index];
+  const left = card.offsetLeft - (slider.clientWidth / 2) + (card.offsetWidth / 2);
+  slider.scrollTo({ left: left, behavior: 'smooth' });
 }
 
-// Initial alignment
-window.addEventListener('load', () => {
-  scrollToCard(0);
-});
-
-// Right arrow (loop)
+// Right arrow
 rightBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex + 1) % totalCards;
+  // Only loop middle cards (1-2 in 0-based index)
+  if (currentIndex >= 1 && currentIndex <= 2) {
+    currentIndex++;
+    if (currentIndex > 2) currentIndex = 1; // loop back to second card
+  } else if (currentIndex === 0) {
+    currentIndex = 1; // move from first card to second
+  } else if (currentIndex === 3) {
+    currentIndex = 2; // move from last card to fifth
+  }
   scrollToCard(currentIndex);
 });
 
-// Left arrow (loop)
+// Left arrow
 leftBtn.addEventListener('click', () => {
-  currentIndex = (currentIndex - 1 + totalCards) % totalCards;
+  if (currentIndex >= 1 && currentIndex <= 2) {
+    currentIndex--;
+    if (currentIndex < 1) currentIndex = 2; // loop back to fifth card
+  } else if (currentIndex === 0) {
+    currentIndex = 1; // move from first card to second
+  } else if (currentIndex === 3) {
+    currentIndex = 2; // move from last card to fifth
+  }
   scrollToCard(currentIndex);
 });
 
-// Sync index on manual scroll
-slider.addEventListener('scroll', () => {
-  let closestIndex = 0;
-  let minDiff = Infinity;
-  const sliderCenter = slider.scrollLeft + slider.clientWidth / 2;
-
-  cards.forEach((card, i) => {
-    const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-    const diff = Math.abs(sliderCenter - cardCenter);
-    if (diff < minDiff) {
-      minDiff = diff;
-      closestIndex = i;
-    }
-  });
-
-  currentIndex = closestIndex;
-});
-
-// Re-align on resize
-window.addEventListener('resize', () => {
-  scrollToCard(currentIndex);
-});
 
