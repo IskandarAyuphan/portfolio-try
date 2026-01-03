@@ -80,9 +80,8 @@ header {
 
 /* ================= SECTIONS ================= */
 .section {
-  width: 100%
   min-height: 100vh;
-  padding: 6rem 2rem;
+  padding: 100px 10%;
   display: flex;
   flex-direction: column;
   justify-content: center;
