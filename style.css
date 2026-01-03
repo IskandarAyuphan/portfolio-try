@@ -176,7 +176,7 @@ h4 {
   left: 50%;           /* horizontal center */
   width: 90%; 
   transform: translate(-50%, -50%); /* center in both directions */
-  font-size: 2.2rem;
+  font-size: 1.5rem;
   color: #3a9ed9;
   font-weight: 700;
   text-align: center;
@@ -184,7 +184,7 @@ h4 {
 }
 
 .project-desc {
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   margin-top: 1.5rem;
   margin-bottom: 0;
   line-height: 1.6;
