@@ -4,23 +4,37 @@ function toggleMenu() {
 }
 
 /* ================= PROJECT CAROUSEL ================= */
-let index = 0;
-const totalProjects = 4;   // total number of project cards
-const visibleProjects = 2; // number of cards visible at a time
-const cardWidth = 300;     // must match your CSS
+const slider = document.querySelector('.projects-slider');
+const leftBtn = document.querySelector('.slide-arrow.left');
+const rightBtn = document.querySelector('.slide-arrow.right');
+const cards = document.querySelectorAll('.project-card');
 
-function move(step) {
-  const track = document.getElementById("track");
-  const maxIndex = totalProjects - visibleProjects; // last index where 2 cards are fully visible
+let currentIndex = 0; // start at first card
 
-  index += step;
+function scrollToCard(index) {
+  const card = cards[index];
+  const left = card.offsetLeft - (slider.clientWidth / 2) + (card.offsetWidth / 2);
+  slider.scrollTo({ left: left, behavior: 'smooth' });
+}
 
-  // wrap around
-  if (index > maxIndex) {
-    index = 0; // back to first set
-  } else if (index < 0) {
-    index = maxIndex; // go to last set
+// Right arrow
+rightBtn.addEventListener('click', () => {
+  currentIndex++;
+
+  if (currentIndex > 3) {
+    currentIndex = 0; // loop back to first card
   }
 
-  track.style.transform = `translateX(${-index * cardWidth}px)`;
-}
+  scrollToCard(currentIndex);
+});
+
+// Left arrow
+leftBtn.addEventListener('click', () => {
+  currentIndex--;
+
+  if (currentIndex < 0) {
+    currentIndex = 3; // loop to last card
+  }
+
+  scrollToCard(currentIndex);
+});
