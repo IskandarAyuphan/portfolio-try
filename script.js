@@ -7,35 +7,36 @@ function toggleMenu() {
 const slider = document.querySelector('.projects-slider');
 const leftBtn = document.querySelector('.slide-arrow.left');
 const rightBtn = document.querySelector('.slide-arrow.right');
-const cards = document.querySelectorAll('.project-card');
+const cards = Array.from(document.querySelectorAll('.project-card'));
 
 const totalCards = cards.length;
 let currentIndex = 0;
 
-function scrollToCard(index) {
+function scrollToCard(index, smooth = true) {
   slider.scrollTo({
     left: cards[index].offsetLeft,
-    behavior: 'smooth',
+    behavior: smooth ? 'smooth' : 'auto',
   });
 }
 
-/* Right arrow */
+/* Initial alignment */
+window.addEventListener('load', () => {
+  scrollToCard(0, false);
+});
+
+/* Right arrow (loop) */
 rightBtn.addEventListener('click', () => {
-  if (currentIndex < totalCards - 1) {
-    currentIndex++;
-  }
+  currentIndex = (currentIndex + 1) % totalCards;
   scrollToCard(currentIndex);
 });
 
-/* Left arrow */
+/* Left arrow (loop) */
 leftBtn.addEventListener('click', () => {
-  if (currentIndex > 0) {
-    currentIndex--;
-  }
+  currentIndex = (currentIndex - 1 + totalCards) % totalCards;
   scrollToCard(currentIndex);
 });
 
-/* Sync index when user scrolls */
+/* Sync index on manual scroll */
 slider.addEventListener('scroll', () => {
   let closestIndex = 0;
   let minDiff = Infinity;
@@ -51,7 +52,7 @@ slider.addEventListener('scroll', () => {
   currentIndex = closestIndex;
 });
 
-/* Initial alignment */
-window.addEventListener('load', () => {
-  scrollToCard(0);
+/* Keep alignment on resize */
+window.addEventListener('resize', () => {
+  scrollToCard(currentIndex, false);
 });
