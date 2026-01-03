@@ -170,7 +170,7 @@ h4 {
   width: 280px;
   height: 350px;
   flex: 0 0 auto;
-  scroll-snap-align: center; /* center the card */
+  scroll-snap-align: start; /* center the card */
 }
 .project-card:nth-child(1) { animation-delay: 0.1s; }
 .project-card:nth-child(2) { animation-delay: 0.2s; }
