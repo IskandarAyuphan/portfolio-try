@@ -178,7 +178,7 @@ h4 {
 .project-card:nth-child(4) { animation-delay: 0.4s; }
 
 .project-title {
-  position: relative;
+  position: absolute;
   top: 15%;            /* vertical center */
   left: 50%;           /* horizontal center */
   width: 90%; 
@@ -191,7 +191,6 @@ h4 {
 }
 
 .project-desc {
-  position: absolute
   font-size: 1.2rem;
   margin-top: 5rem;
   margin-bottom: 0;
