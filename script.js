@@ -9,21 +9,35 @@ const leftBtn = document.querySelector('.slide-arrow.left');
 const rightBtn = document.querySelector('.slide-arrow.right');
 const cards = document.querySelectorAll('.project-card');
 
-const totalCards = cards.length;
-const visibleCards = 2;
-const maxIndex = totalCards - visibleCards; // 4 - 2 = 2
-
 let currentIndex = 0;
 
-/* Scroll so LEFT card aligns */
+function getVisibleCards() {
+  return window.innerWidth <= 600 ? 1 : 2;
+}
+
+function getMaxIndex() {
+  return cards.length - getVisibleCards();
+}
+
 function scrollToCard(index, smooth = true) {
+  const card = cards[index];
+  let left;
+
+  if (getVisibleCards() === 1) {
+    // center single card
+    left = card.offsetLeft - (slider.clientWidth / 2) + (card.offsetWidth / 2);
+  } else {
+    // align left for 2 cards
+    left = card.offsetLeft;
+  }
+
   slider.scrollTo({
-    left: cards[index].offsetLeft,
+    left,
     behavior: smooth ? 'smooth' : 'auto',
   });
 }
 
-/* Initial position */
+/* Initial alignment */
 window.addEventListener('load', () => {
   scrollToCard(0, false);
 });
@@ -31,18 +45,18 @@ window.addEventListener('load', () => {
 /* RIGHT arrow */
 rightBtn.addEventListener('click', () => {
   currentIndex++;
-  if (currentIndex > maxIndex) currentIndex = 0;
+  if (currentIndex > getMaxIndex()) currentIndex = 0;
   scrollToCard(currentIndex);
 });
 
 /* LEFT arrow */
 leftBtn.addEventListener('click', () => {
   currentIndex--;
-  if (currentIndex < 0) currentIndex = maxIndex;
+  if (currentIndex < 0) currentIndex = getMaxIndex();
   scrollToCard(currentIndex);
 });
 
-/* Sync index when user scrolls manually */
+/* Sync index on manual scroll */
 slider.addEventListener('scroll', () => {
   let closestIndex = 0;
   let minDiff = Infinity;
@@ -55,12 +69,10 @@ slider.addEventListener('scroll', () => {
     }
   });
 
-  currentIndex = Math.min(closestIndex, maxIndex);
+  currentIndex = Math.min(closestIndex, getMaxIndex());
 });
 
 /* Keep alignment on resize */
 window.addEventListener('resize', () => {
   scrollToCard(currentIndex, false);
 });
-
-
