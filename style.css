@@ -271,19 +271,6 @@ h4 {
   cursor: pointer;
 }
 
-/* Mobile: 1 card visible */
-@media (max-width: 500px) {
-  .project {
-    flex: 0 0 90%; /* 1 card per view */
-  }
-
-  .projects-container {
-    overflow-x: auto; /* allow horizontal scrolling on mobile */
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
-  }
-}
-
 /* ================= SKILLS ================= */
 .skill-grid {
   display: flex;
